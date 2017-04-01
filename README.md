@@ -1,2 +1,0 @@
-# digitalHouseSprint1
-Sprint

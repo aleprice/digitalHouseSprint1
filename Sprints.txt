@@ -1,0 +1,46 @@
+Sprint #1
+
+ "En mi opinion, debemos definir el e-commerce. Que tipo de productos se van a vender y a que genero, personalmente me gusta venta de indumentaria
+  y no tengo preferencia de genero."
+
+* El home del sitio debe presentar la idea del sitio en sí de forma moderna y elegante.
+
+	Este link es un modelo de e-commerce que me parecio muy atractivo y moderno	
+	http://velikorodnov.com/html/flatastic/classic/index.html
+
+
+* el sitio debe contar con una página (completa a nivel visual pero no funcional) que permita registrar a 
+los usuarios mediante un formulario pidiendo los datos típicos en una registración.
+
+	Datos tipicos: 
+	*Primer Nombre
+	*Primer Apellido
+	*Direccion de mail
+	*Contrasenia
+	*Confirmar contrasenia
+
+	El siguiente link es la pag crear cuenta de Volcom.com tiene un aspecto muy sencillo, el boton se mantiene siempre en el head
+	https://www.volcom.com/customer/account/create/
+	
+
+* El sitio debe contar con una página (completa a nivel visual pero no funcional) que permita que un usuario 
+ingrese al sitio mediante un formulario. Este formulario debe incluir el "Recordarme" y una parte que permita indicar 
+si el usuario olvidó su contraseña.
+
+	Datos de ingreso para usuarios:
+	*Direccion de mail
+	*Contrasenia
+	*olvido su Contrasenia
+
+	El siguiente link es la pag crear cuenta de Volcom.com, con el mismo estilo sencillo mas una forma sencilla de acceder con la cuente de FB o Twitter.
+	https://www.volcom.com/customer/account/login
+
+*Debe contar con una página con al menos 5 preguntas frecuentes en su sitio.
+
+	???
+
+*Que se pueda navegar el sitio entre las 4 páginas de manera fluida.
+
+*Que el estilo del sitio sea común a las 4 páginas.
+
+*las páginas deben verse de forma cómoda en dispositivos móviles. (desde el principio debe armarce en @media queries)
