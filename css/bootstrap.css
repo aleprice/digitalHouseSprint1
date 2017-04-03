@@ -3171,7 +3171,7 @@ fieldset[disabled] .btn-primary.focus {
   background-color: #fff;
 }
 .btn-success {
-  color: #fff;
+  color: white;
   background-color: #5cb85c;
   border-color: #4cae4c;
 }
@@ -5481,6 +5481,7 @@ button.list-group-item-danger.active:focus {
   color: inherit;
 }
 .panel-footer {
+
   padding: 10px 15px;
   background-color: #f5f5f5;
   border-top: 1px solid #ddd;

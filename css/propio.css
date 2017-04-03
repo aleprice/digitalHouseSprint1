@@ -3,3 +3,33 @@
 	color: white;
 	font-size: .9em;
 }
+
+.header {
+	position: fixed;
+}
+
+.Logo {
+	text-align: center;
+}
+
+.backgFtr{
+	background-color: yellow;
+}
+
+.title-li{
+	font-size: 1.2em;	
+	color: #666666;
+}
+
+.whtfont{
+	color: white;
+	text-align: center;
+}
+
+.listfoo{
+	color: #808080;
+}
+
+.panel-footer ul{
+	list-style-type: none;
+}
