@@ -15,12 +15,24 @@
 	position: fixed;
 }
 
+.nav {
+	border-radius: 0px;
+}
+
 .Logo {
 	text-align: center;
 }
 
-.backgFtr{
-	background-color: yellow;
+.fontwhite{
+	color: white;
+}
+
+.backgproductos{
+	background-color:#FAFAFA;
+}
+
+.backgfooter{
+	background-color: #e6e6e6;
 }
 
 .title-li{
@@ -39,5 +51,4 @@
 
 .panel-footer ul{
 	list-style-type: none;
-
 }
