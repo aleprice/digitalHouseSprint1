@@ -11,8 +11,26 @@ $email = (isset($_POST['email']) && strlen($_POST['email'])) ? $_POST['email'] :
 $telefono = (isset($_POST['telefono']) && strlen($_POST['telefono'])) ? $_POST['telefono'] : "Ingrese_su_telefono";
 $direccion = (isset($_POST['direccion']) && strlen($_POST['direccion'])) ? $_POST['direccion'] : "Ingrese_su_direccion"
 
+//Codigo para Foto upload
 
+	$confirmacionUser = $_POST["name"];
+		echo "Bienvenido " . $confirmacionUser . "<br><br>";
+			//datos del arhivo
+			$foto = $HTTP_POST_FILES['name'];
+			$formatoFoto = $HTTP_POST_FILES['type'];
+			$tamanoFoto = $HTTP_POST_FILES['size'];
+			//comprobar las características de la imagen
+				if (!((strpos($formatoFoto, "gif") || strpos($formatoFoto, "jpeg")) && ($tamanoFoto < 300000))) {
+				echo "La imagen no se pudo guardar: <br><br><table><tr><td><li> Solo se pueden subir imagenes de tipo .gif o .jpg <br><li>La imagén no debe pesar más de 300Kb.</td></tr></table>";
+					}else{
+						if (move_uploaded_file($HTTP_POST_FILES['foto'], $foto))
+							echo "Tu foto ha sido cargada exitosamente.";
+						}else{
+							echo "Tu foto no pudo guardarse.";
+						} 
+					}
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -109,7 +127,7 @@ $direccion = (isset($_POST['direccion']) && strlen($_POST['direccion'])) ? $_POS
 	<div class="container">
 		<div class="row">
 		<!-- agregué method, action y id al tag fom -->
-			<form method="post" action="" id="registrates">
+			<form enctype="multipart/form-data" method="post" action="http://localhost:8888/digitalHouseSprint1-master/foto" id="registrates">
 				<div class="form-group">
 				<!-- pasé mayusculas a minisculas todos los tags de name para que fuese más facil trabajar -->
 					<label for ="Nombre">Nombre:</label>
@@ -125,8 +143,15 @@ $direccion = (isset($_POST['direccion']) && strlen($_POST['direccion'])) ? $_POS
 					<input type="tel" name="telefono" value="<?=$telefono?>" class=form-control id="usr">
 				</div>
 				<div class="form-group">
-					<label for ="Dirección">Dirección:</label>
+					<label for ="dirección">Dirección:</label>
 					<input type="text" name="direccion" value="<?=$direccion?>" class=form-control id="address-line1">
+				</div>
+				<div class="form-group">
+					<input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+					<label for ="foto">Subir foto de perfil:</label>
+					<input name="foto" type="file" />
+    				<input type="submit" value="Enviar foto" />
+					
 				</div>
 				<div class="form-group">
 					<label for ="Contraseña">Contraseña:</label>
