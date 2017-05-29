@@ -1,56 +1,4 @@
-<?php 
-function pre($data){
-    echo "<pre>".print_r($data)."</pre>";
-}
- //Codigo persistencia de datos 
-$nombre = (isset($_POST['nombre']) && strlen($_POST['nombre'])) ? $_POST['nombre'] : "Ingrese_su_nombre";
-$email = (isset($_POST['email']) && strlen($_POST['email'])) ? $_POST['email'] : "Ingrese_su_email";
-$telefono = (isset($_POST['telefono']) && strlen($_POST['telefono'])) ? $_POST['telefono'] : "Ingrese_su_telefono";
-$direccion = (isset($_POST['direccion']) && strlen($_POST['direccion'])) ? $_POST['direccion'] : "Ingrese_su_direccion";
 
-//Codigo para crear el json
-if (isset($_POST['nombre']) && isset($_POST['email']) && isset($_POST['telefono']) && isset($_POST['direccion'])) {
-        
-        $datos=array();
-        $nombre = $_POST['nombre'];
-        $email = $_POST['email'];
-        $telefono = $_POST['telefono'];
-        $direccion = $_POST['direccion'];
-
-        $datos[] = [
-            'nombre'=>$nombre, 
-            'email'=>$email, 
-            'telefono'=>$telefono, 
-            'direccion'=>$direccion,
-            ];
-    //Creamos el JSON
-    $json_string = json_encode($datos);
-    $file = 'registroUsuarios.json';
-    file_put_contents($file, $json_string); 
-    } else {
-        echo "<span style='color: red;'>Por favor, ingrese sus datos. </span></br></br>";
-    }
-
-/*Codigo para Foto upload
-
-	$confirmacionUser = $_POST['name'];
-		echo "Bienvenido " . $confirmacionUser . "<br><br>";
-			//datos del arhivo
-			$foto = $HTTP_POST_FILES['name'];
-			$formatoFoto = $HTTP_POST_FILES['type'];
-			$tamanoFoto = $HTTP_POST_FILES['size'];
-			//comprobar las características de la imagen
-				if (!((strpos($formatoFoto, "gif") || strpos($formatoFoto, "jpeg")) && ($tamanoFoto < 300000))) {
-				echo "La imagen no se pudo guardar: <br><br><table><tr><td><li> Solo se pueden subir imagenes de tipo .gif o .jpg <br><li>La imagén no debe pesar más de 300Kb.</td></tr></table>";
-					}else{
-						if (move_uploaded_file($HTTP_POST_FILES['foto'], $foto))
-							echo "Tu foto ha sido cargada exitosamente.";
-						}else{
-							echo "Tu foto no pudo guardarse.";
-						} 
-					}
-*/
-?>
 
 <!DOCTYPE html>
 <html>
@@ -132,67 +80,22 @@ if (isset($_POST['nombre']) && isset($_POST['email']) && isset($_POST['telefono'
 		</nav>
 	</header>
 
-<!-- FORMULARIO -->
-
+<!-- CUERPO WEB -->
 	<div class="container">
 		<div class="row main">
 			<div class="panel-heading">
 				<div class="panel-title text-center">
-					<h2 class="title"> Crea tu cuenta </h2>
+					<h2 class="title"> Gracias, Te registraste correctamente. </h2>
+					<h2 class="title"> Vuelve a la Home para Iniciar Sesion. </h2>
 					<hr />
 				</div>
 			</div>			
 		</div>
 	</div>
 
-	<div class="container">
-		<div class="row">
-		<!-- agregué method, action y id al tag fom -->
-			<form enctype="multipart/form-data" method="post" action="registrocorrecto.html" id="registroUsuarios">
-				<div class="form-group">
-				<!-- pasé mayusculas a minisculas todos los tags de name para que fuese más facil trabajar -->
-					<label for ="Nombre">Nombre:</label>
-					<input type='text' name='nombre' value="<?=$nombre?>" class=form-control id='name' required>	
-				</div>
-				  <div class="form-group">
-    				<label for='email'>Email:</label>
-    				<input type='email' name='email' value="<?=$email?>" class="form-control" id='email' required>
-  				</div>
 
-				<div class="form-group">
-					<label for ="telefono">Teléfono (opcional):</label>
-					<input type='tel' name='telefono' value="<?=$telefono?>" class=form-control id='telefono'>
-				</div>
-				<div class="form-group">
-					<label for ="dirección">Dirección:</label>
-					<input type='text' name='direccion' value="<?=$direccion?>" class=form-control id='direccion'>
-				</div>
-				<!--div class="form-group">
-					<input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-					<label for ="foto">Subir foto de perfil:</label>
-					<input name='foto' type="file" />
-    				<input type="submit" value="Enviar foto" />
-					
-				</div-->
-				<div class="form-group">
-					<label for ="Contraseña">Contraseña:</label>
-					<input type='password' name='contraseña' value="" class=form-control id='contraseña'>
-				</div>
-				<div class="form-group">
-					<label for ="Contraseña">Confirme su contraseña:</label>
-					<input type="password" name='contraseña' value="" class=form-control id='contraseña-confirmacion'>
-				</div>
-				<div class="form-group">
-					<input type="submit" name="Registrate" value="Registrate" class="btn"> 
-				</div>
-				<div class="form-group">
-					<input type="checkbox"> Recordame
-				</div>
-			</div>
-			</form>
-		</div>
-		
-	</div>
+<!-- CUERPO WEB -->
+
 
   <footer>
     <div class="panel-footer backgfooter">
