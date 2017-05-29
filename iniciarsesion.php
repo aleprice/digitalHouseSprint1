@@ -83,8 +83,8 @@ $direccion = (isset($_POST['direccion']) && strlen($_POST['direccion'])) ? $_POS
 							</div>
 						</form>
 					</li>
-					<li><a href="registrate.html"><span class="glyphicon glyphicon-user"></span> Crear Cuenta</a></li>
-					<li><a href="iniciarsesion.html"><span class="glyphicon glyphicon-log-in"></span> Iniciar Sesión </a></li>
+					<li><a href="registrate.php"><span class="glyphicon glyphicon-user"></span> Crear Cuenta</a></li>
+					<li><a href="iniciarsesion.php"><span class="glyphicon glyphicon-log-in"></span> Iniciar Sesión </a></li>
 					<li>
 						<div class="checkbox navbar-form fontwhite">
 							<label><input type="checkbox"> Recordame</label>
