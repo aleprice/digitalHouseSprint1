@@ -1,19 +1,39 @@
 <?php 
+function pre($data){
+    echo "<pre>".print_r($data)."</pre>";
+}
  //Codigo persistencia de datos 
-$nombre = "";
-$email = "";
-$telefono = "";
-$direccion = "";
-$contraseña = "";
-
 $nombre = (isset($_POST['nombre']) && strlen($_POST['nombre'])) ? $_POST['nombre'] : "Ingrese_su_nombre";
 $email = (isset($_POST['email']) && strlen($_POST['email'])) ? $_POST['email'] : "Ingrese_su_email";
 $telefono = (isset($_POST['telefono']) && strlen($_POST['telefono'])) ? $_POST['telefono'] : "Ingrese_su_telefono";
-$direccion = (isset($_POST['direccion']) && strlen($_POST['direccion'])) ? $_POST['direccion'] : "Ingrese_su_direccion"
+$direccion = (isset($_POST['direccion']) && strlen($_POST['direccion'])) ? $_POST['direccion'] : "Ingrese_su_direccion";
 
-//Codigo para Foto upload
+//Codigo para crear el json
+if (isset($_POST['nombre']) && isset($_POST['email']) && isset($_POST['telefono']) && isset($_POST['direccion'])) {
+        
+        $datos=array();
+        $nombre = $_POST['nombre'];
+        $email = $_POST['email'];
+        $telefono = $_POST['telefono'];
+        $direccion = $_POST['direccion'];
 
-	$confirmacionUser = $_POST["name"];
+        $datos[] = [
+            'nombre'=>$nombre, 
+            'email'=>$email, 
+            'telefono'=>$telefono, 
+            'direccion'=>$direccion,
+            ];
+    //Creamos el JSON
+    $json_string = json_encode($datos);
+    $file = 'registroUsuarios.json';
+    file_put_contents($file, $json_string); 
+    } else {
+        echo "<span style='color: red;'>Por favor, ingrese sus datos. </span></br></br>";
+    }
+
+/*Codigo para Foto upload
+
+	$confirmacionUser = $_POST['name'];
 		echo "Bienvenido " . $confirmacionUser . "<br><br>";
 			//datos del arhivo
 			$foto = $HTTP_POST_FILES['name'];
@@ -29,6 +49,7 @@ $direccion = (isset($_POST['direccion']) && strlen($_POST['direccion'])) ? $_POS
 							echo "Tu foto no pudo guardarse.";
 						} 
 					}
+*/
 ?>
 
 <!DOCTYPE html>
@@ -117,7 +138,7 @@ $direccion = (isset($_POST['direccion']) && strlen($_POST['direccion'])) ? $_POS
 		<div class="row main">
 			<div class="panel-heading">
 				<div class="panel-title text-center">
-					<h2 class="title"> Crea tu cuenta</h2>
+					<h2 class="title"> Crea tu cuenta </h2>
 					<hr />
 				</div>
 			</div>			
@@ -127,39 +148,39 @@ $direccion = (isset($_POST['direccion']) && strlen($_POST['direccion'])) ? $_POS
 	<div class="container">
 		<div class="row">
 		<!-- agregué method, action y id al tag fom -->
-			<form enctype="multipart/form-data" method="post" action="http://localhost:8888/digitalHouseSprint1-master/foto" id="registrates">
+			<form enctype="multipart/form-data" method="post" action="" id="registroUsuarios">
 				<div class="form-group">
 				<!-- pasé mayusculas a minisculas todos los tags de name para que fuese más facil trabajar -->
 					<label for ="Nombre">Nombre:</label>
-					<input type="text" name="nombre" value="<?=$nombre?>" class=form-control id="name" required>	
+					<input type='text' name='nombre' value="<?=$nombre?>" class=form-control id='name' required>	
 				</div>
 				  <div class="form-group">
-    				<label for="email">Email:</label>
-    				<input type="email" name="email" value="<?=$email?>" class="form-control" id="email" required>
+    				<label for='email'>Email:</label>
+    				<input type='email' name='email' value="<?=$email?>" class="form-control" id='email' required>
   				</div>
 
 				<div class="form-group">
 					<label for ="telefono">Teléfono (opcional):</label>
-					<input type="tel" name="telefono" value="<?=$telefono?>" class=form-control id="usr">
+					<input type='tel' name='telefono' value="<?=$telefono?>" class=form-control id='telefono'>
 				</div>
 				<div class="form-group">
 					<label for ="dirección">Dirección:</label>
-					<input type="text" name="direccion" value="<?=$direccion?>" class=form-control id="address-line1">
+					<input type='text' name='direccion' value="<?=$direccion?>" class=form-control id='direccion'>
 				</div>
-				<div class="form-group">
+				<!--div class="form-group">
 					<input type="hidden" name="MAX_FILE_SIZE" value="30000" />
 					<label for ="foto">Subir foto de perfil:</label>
-					<input name="foto" type="file" />
+					<input name='foto' type="file" />
     				<input type="submit" value="Enviar foto" />
 					
-				</div>
+				</div-->
 				<div class="form-group">
 					<label for ="Contraseña">Contraseña:</label>
-					<input type="password" name="contraseña" value="" class=form-control id="psw">
+					<input type='password' name='contraseña' value="" class=form-control id='contraseña'>
 				</div>
 				<div class="form-group">
 					<label for ="Contraseña">Confirme su contraseña:</label>
-					<input type="password" name="contraseña" value="" class=form-control id="psw-repeat">
+					<input type="password" name='contraseña' value="" class=form-control id='contraseña-confirmacion'>
 				</div>
 				<div class="form-group">
 					<input type="submit" name="Registrate" value="Registrate" class="btn"> 
