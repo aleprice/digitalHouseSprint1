@@ -2,34 +2,88 @@
 function pre($data){
     echo "<pre>".print_r($data)."</pre>";
 }
+
+$filename = 'registroUsuarios.json';
+$usuario = array();
+
+function getUsuarios($filename) {
+	if (file_exists($filename)) {
+		return json_decode(file_get_contents($filename),true);
+	}
+	return [];
+}
+
+function existeUsuario($filename,$email) {
+	if (file_exists($filename)) {
+		$usuarios = getUsuarios($filename);
+		foreach ($usuarios as $key => $usuario) {
+			if ($usuario['email'] == $email) {
+			return true;
+			}
+		}
+	}
+	return false;
+}
+
+function crearUsuario($filename,$usuario) {
+	$usuarios = getUsuarios($filename);
+	$usuario['id'] = count($usuarios) + 1;
+	array_push($usuarios,$usuario);
+	file_put_contents($filename,json_encode($usuarios));
+	return $usuario;
+}
+// Iniciamos sessión
+session_start();
+
+
+pre("POST");
+pre($_POST);
+
+pre("SESSION");
+pre($_SESSION);
+
+
+$errores = [];
+
  //Codigo persistencia de datos 
-$nombre = (isset($_POST['nombre']) && strlen($_POST['nombre'])) ? $_POST['nombre'] : "Ingrese_su_nombre";
-$email = (isset($_POST['email']) && strlen($_POST['email'])) ? $_POST['email'] : "Ingrese_su_email";
-$telefono = (isset($_POST['telefono']) && strlen($_POST['telefono'])) ? $_POST['telefono'] : "Ingrese_su_telefono";
-$direccion = (isset($_POST['direccion']) && strlen($_POST['direccion'])) ? $_POST['direccion'] : "Ingrese_su_direccion";
+$nombre = (isset($_POST['nombre']) && strlen($_POST['nombre'])) ? $_POST['nombre'] : 'Ingrese su nombre';
+$email = (isset($_POST['email']) && strlen($_POST['email'])) ? $_POST['email'] : 'Ingrese su email';
+$telefono = (isset($_POST['telefono']) && strlen($_POST['telefono'])) ? $_POST['telefono'] : 'Ingrese su telefono';
+$direccion = (isset($_POST['direccion']) && strlen($_POST['direccion'])) ? $_POST['direccion'] : 'Ingrese su direccion';
+$contrasenia = (isset($_POST['contrasenia']) && strlen($_POST['contrasenia'])) ? $_POST['contrasenia'] : '';
+$contraseniaconfirm = (isset($_POST['contraseniaconfirm']) && strlen($_POST['contraseniaconfirm']) ) ? $_POST['contraseniaconfirm'] : '';
+
 
 //Codigo para crear el json
-if (isset($_POST['nombre']) && isset($_POST['email']) && isset($_POST['telefono']) && isset($_POST['direccion'])) {
-        
-        $datos=array();
-        $nombre = $_POST['nombre'];
-        $email = $_POST['email'];
-        $telefono = $_POST['telefono'];
-        $direccion = $_POST['direccion'];
+//if (isset($_POST['nombre']) && isset($_POST['email']) && isset($_POST['telefono']) && isset($_POST['direccion']) && isset($_POST['contrasenia']) && isset($_POST['contraseniaconfirm']) && ($contrasenia == $contraseniaconfirm) ) {
+if ($nombre && $email && $telefono && $direccion && $contrasenia && $contraseniaconfirm && ($contrasenia == $contraseniaconfirm)) {
+  		
+  		$contrasenia = password_hash($contrasenia,PASSWORD_DEFAULT);
+        pre("El formulario de registro esta completo");
 
-        $datos[] = [
-            'nombre'=>$nombre, 
-            'email'=>$email, 
-            'telefono'=>$telefono, 
-            'direccion'=>$direccion,
-            ];
-    //Creamos el JSON
-    $json_string = json_encode($datos);
-    $file = 'registroUsuarios.json';
-    file_put_contents($file, $json_string); 
-    } else {
-        echo "<span style='color: red;'>Por favor, ingrese sus datos. </span></br></br>";
-    }
+        if (!existeUsuario($filename,$email)) {
+			$usuario = [
+				'nombre'=>$nombre,
+				'email'=>$email,
+				'telefono'=>$telefono,
+				'direccion'=>$direccion,
+				'contrasenia'=>$contrasenia
+			];
+			pre($usuario);
+
+			$usuario = crearUsuario($filename,$usuario);
+			pre($usuario);
+			//header("Location: registrocorrecto.html");
+			exit();
+	    } else {
+        	array_push($errores, "Error: El usuario ya existe");
+    	}
+ } else if (isset($_POST['submit']) && strlen($_POST['submit'])){
+ 	array_push($errores, "Se encuentran campos sin completar");
+ }
+
+
+
 
 /*Codigo para Foto upload
 
@@ -68,6 +122,8 @@ if (isset($_POST['nombre']) && isset($_POST['email']) && isset($_POST['telefono'
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+	 <h1><?php if (count($errores)) { echo join("<br>",$errores); } ?></h1>
 
 <!-- HEADER -->
 	<header>
@@ -148,7 +204,7 @@ if (isset($_POST['nombre']) && isset($_POST['email']) && isset($_POST['telefono'
 	<div class="container">
 		<div class="row">
 		<!-- agregué method, action y id al tag fom -->
-			<form enctype="multipart/form-data" method="post" action="registrocorrecto.html" id="registroUsuarios">
+			<form enctype="multipart/form-data" method="post" action="" id="register">
 				<div class="form-group">
 				<!-- pasé mayusculas a minisculas todos los tags de name para que fuese más facil trabajar -->
 					<label for ="Nombre">Nombre:</label>
@@ -176,14 +232,14 @@ if (isset($_POST['nombre']) && isset($_POST['email']) && isset($_POST['telefono'
 				</div-->
 				<div class="form-group">
 					<label for ="Contraseña">Contraseña:</label>
-					<input type='password' name='contraseña' value="" class=form-control id='contraseña'>
+					<input type='password' name='contrasenia' value="<?=$contrasenia?>" class=form-control id='contrasenia'>
 				</div>
 				<div class="form-group">
 					<label for ="Contraseña">Confirme su contraseña:</label>
-					<input type="password" name='contraseña' value="" class=form-control id='contraseña-confirmacion'>
+					<input type="password" name='contraseniaconfirm' value="<?=$contraseniaconfirm?>" class=form-control id='contraseniaconfirm'>
 				</div>
 				<div class="form-group">
-					<input type="submit" name="Registrate" value="Registrate" class="btn"> 
+					<input type="submit" name="submit" value="Registrate" class="btn"> 
 				</div>
 				<div class="form-group">
 					<input type="checkbox"> Recordame
