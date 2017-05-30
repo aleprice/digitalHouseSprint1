@@ -1,0 +1,24 @@
+        $datos=array();
+        $nombre = $_POST['nombre'];
+        $email = $_POST['email'];
+        $telefono = $_POST['telefono'];
+        $direccion = $_POST['direccion'];
+        $contrasenia = $_POST['contrasenia'];
+
+        $datos[] = [
+            'nombre'=>$nombre, 
+            'email'=>$email, 
+            'telefono'=>$telefono, 
+            'direccion'=>$direccion,
+            'contrasenia'=>$contrasenia,
+            ];
+    //Creamos el JSON
+    $json_string = json_encode($datos);
+    $file = 'registroUsuarios.json';
+    file_put_contents($file, $json_string);
+    header("Location: registrocorrecto.html");
+
+    } else {
+        echo "<span style='color: red;'>Por favor, ingrese sus datos. </span></br></br>";
+    }
+
