@@ -5,6 +5,7 @@ function pre($data){
 }
 
 $filename = 'usuarios.json';
+
 function getUsuarios($filename) {
 	if (file_exists($filename)) {
 		return json_decode(file_get_contents($filename),true);
@@ -23,36 +24,52 @@ function existeUsuario($filename,$email) {
 	}
 	return false;
 }
+
+function contraseniaCorrecta($filename,$contrasenia) {
+	if (file_exists($filename)) {
+		$usuarios = getUsuarios($filename);
+		foreach ($usuarios as $key => $usuario) {
+			$contrasenia = password_hash($contrasenia,PASSWORD_DEFAULT);
+			if ($testContrasenia = (password_hash(($usuario['contrasenia']),PASSWORD_DEFAULT)) == $contrasenia) {
+			return true;
+			}
+		}
+	}
+	return false;
+}
  //Codigo persistencia de datos 
 
-
-
-$email = "";
-$contraseña = "";
+session_start();
 
 $email = (isset($_POST['email']) && strlen($_POST['email'])) ? $_POST['email'] : 'Ingrese su email';
 $contrasenia = (isset($_POST['contrasenia']) && strlen($_POST['contrasenia'])) ? $_POST['contrasenia'] : '';
 
-
+$errores = [];
 
 
 if ($email && $contrasenia) {
-  		
-  		$contrasenia = password_hash($contrasenia,PASSWORD_DEFAULT);
 
-        if (!existeUsuario($filename,$email)) {
+    $contrasenia = password_hash($contrasenia,PASSWORD_DEFAULT);
 
-
-
-//			header("Location: registrocorrecto.html");
-			exit();
-	    } else {
-        	array_push($errores, "Error: El usuario ya existe");
+    if (!existeUsuario($filename,$email)) {
+		array_push($errores, "El usuario NO existente");
+        //$usuario = crearUsuario($filename,$usuario);
+        //
+        //exit();
+    } else {
+    	if(contraseniaCorrecta($filename,$contrasenia)){
+    		array_push($errores, "Iniciaste Sesion Correctamente");
+    		//header("Location: sesioniniciada.html");
+    	}else{
+    		array_push($errores, "Usuario existente, Contraseña incorrecta");	
     	}
- } else if (isset($_POST['submit']) && strlen($_POST['submit'])){
- 	array_push($errores, "Se encuentran campos sin completar");
- }
+    	
+	}
 
+
+} else if (isset($_POST['submit']) && strlen($_POST['submit'])){
+    array_push($errores, "hay campos sin completar");
+}
 ?>
 
 <!DOCTYPE html>
@@ -72,6 +89,7 @@ if ($email && $contrasenia) {
 
 </head>
 <body>
+	<h1><?php if (count($errores)) { echo join("<br>",$errores); } ?></h1>
 
 <!-- HEADER -->
 

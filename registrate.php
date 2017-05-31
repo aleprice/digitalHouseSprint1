@@ -4,7 +4,14 @@ function pre($data){
 }
 
 $filename = 'usuarios.json';
-$usuario = array();
+$usuario = [];
+if (file_exists($filename) && file_get_contents($filename)) {
+}else{
+	file_put_contents($filename,json_encode($usuario));
+}
+
+
+
 function getUsuarios($filename) {
 	if (file_exists($filename)) {
 		return json_decode(file_get_contents($filename),true);
