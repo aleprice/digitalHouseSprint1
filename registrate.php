@@ -3,9 +3,8 @@ function pre($data){
     echo "<pre>".print_r($data)."</pre>";
 }
 
-$filename = 'registroUsuarios.json';
+$filename = 'usuarios.json';
 $usuario = array();
-
 function getUsuarios($filename) {
 	if (file_exists($filename)) {
 		return json_decode(file_get_contents($filename),true);
@@ -35,14 +34,6 @@ function crearUsuario($filename,$usuario) {
 // Iniciamos sessión
 session_start();
 
-
-pre("POST");
-pre($_POST);
-
-pre("SESSION");
-pre($_SESSION);
-
-
 $errores = [];
 
  //Codigo persistencia de datos 
@@ -55,7 +46,6 @@ $contraseniaconfirm = (isset($_POST['contraseniaconfirm']) && strlen($_POST['con
 
 
 //Codigo para crear el json
-//if (isset($_POST['nombre']) && isset($_POST['email']) && isset($_POST['telefono']) && isset($_POST['direccion']) && isset($_POST['contrasenia']) && isset($_POST['contraseniaconfirm']) && ($contrasenia == $contraseniaconfirm) ) {
 if ($nombre && $email && $telefono && $direccion && $contrasenia && $contraseniaconfirm && ($contrasenia == $contraseniaconfirm)) {
   		
   		$contrasenia = password_hash($contrasenia,PASSWORD_DEFAULT);
@@ -69,11 +59,9 @@ if ($nombre && $email && $telefono && $direccion && $contrasenia && $contrasenia
 				'direccion'=>$direccion,
 				'contrasenia'=>$contrasenia
 			];
-			pre($usuario);
 
 			$usuario = crearUsuario($filename,$usuario);
-			pre($usuario);
-			//header("Location: registrocorrecto.html");
+			header("Location: registrocorrecto.html");
 			exit();
 	    } else {
         	array_push($errores, "Error: El usuario ya existe");

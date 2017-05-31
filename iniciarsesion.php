@@ -1,15 +1,57 @@
 <?php 
+
+function pre($data){
+    echo "<pre>".print_r($data)."</pre>";
+}
+
+$filename = 'usuarios.json';
+function getUsuarios($filename) {
+	if (file_exists($filename)) {
+		return json_decode(file_get_contents($filename),true);
+	}
+	return [];
+}
+
+function existeUsuario($filename,$email) {
+	if (file_exists($filename)) {
+		$usuarios = getUsuarios($filename);
+		foreach ($usuarios as $key => $usuario) {
+			if ($usuario['email'] == $email) {
+			return true;
+			}
+		}
+	}
+	return false;
+}
  //Codigo persistencia de datos 
-$nombre = "";
+
+
+
 $email = "";
-$telefono = "";
-$direccion = "";
 $contraseña = "";
 
-$nombre = (isset($_POST['nombre']) && strlen($_POST['nombre'])) ? $_POST['nombre'] : "Ingrese_su_nombre";
-$email = (isset($_POST['email']) && strlen($_POST['email'])) ? $_POST['email'] : "Ingrese_su_email";
-$telefono = (isset($_POST['telefono']) && strlen($_POST['telefono'])) ? $_POST['telefono'] : "Ingrese_su_telefono";
-$direccion = (isset($_POST['direccion']) && strlen($_POST['direccion'])) ? $_POST['direccion'] : "Ingrese_su_direccion"
+$email = (isset($_POST['email']) && strlen($_POST['email'])) ? $_POST['email'] : 'Ingrese su email';
+$contrasenia = (isset($_POST['contrasenia']) && strlen($_POST['contrasenia'])) ? $_POST['contrasenia'] : '';
+
+
+
+
+if ($email && $contrasenia) {
+  		
+  		$contrasenia = password_hash($contrasenia,PASSWORD_DEFAULT);
+
+        if (!existeUsuario($filename,$email)) {
+
+
+
+//			header("Location: registrocorrecto.html");
+			exit();
+	    } else {
+        	array_push($errores, "Error: El usuario ya existe");
+    	}
+ } else if (isset($_POST['submit']) && strlen($_POST['submit'])){
+ 	array_push($errores, "Se encuentran campos sin completar");
+ }
 
 ?>
 
@@ -119,7 +161,7 @@ $direccion = (isset($_POST['direccion']) && strlen($_POST['direccion'])) ? $_POS
 
 				<div class="form-group">
 					<label for ="Contraseña">Contraseña:</label>
-					<input type="text" name="Contraseña" class=form-control id="psw">
+					<input type="text" name="contrasenia" class=form-control id="contrasenia">
 				</div>
 <!--				<div class="form-group">
 					<label for ="Contraseña">Confirme su contraseña:</label>

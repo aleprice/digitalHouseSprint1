@@ -82,7 +82,7 @@ if ($name && $pais && $email && $password && $rePassword && $password == $rePass
             'password'=>$password
         ];
         $usuario = crearUsuario($filename,$usuario);
-        header("Location: login.php");
+        //header("Location: login.php");
         exit();
     } else {
         array_push($errores, "usuario existente");
