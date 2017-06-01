@@ -91,8 +91,8 @@ if ($nombre && $email && $telefono && $direccion && $contrasenia && $contrasenia
 			pre("El Archivo llego Correctamente");
 			$nombreArchivo = "usuario_".$usuario['id']."_.". pathinfo($_FILES["emoticon"]["name"], PATHINFO_EXTENSION);
 
-			if(move_uploaded_file($_FILES["emoticon"]["tmp_name"],"images/".$nombreArchivo)){
-				$usuario['emoticon'] = "images/".$nombreArchivo;
+			if(move_uploaded_file($_FILES["emoticon"]["tmp_name"],"img/users/".$nombreArchivo)){
+				$usuario['emoticon'] = "img/users/".$nombreArchivo;
 			} else {
 				pre("Error al guardar archivo");
 			}
