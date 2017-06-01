@@ -60,6 +60,7 @@ if ($email && $contrasenia) {
     } else {
     	if(contraseniaCorrecta($filename,$contrasenia)){
     		array_push($errores, "Iniciaste Sesion Correctamente");
+    		//$_SESSION['login_user']= $email; CHEQUEAR COMO FUNCIONA SESSION
     		header("Location: sesioniniciada.html");
     	}else{
     		array_push($errores, "Usuario existente, Contraseña incorrecta");    			
@@ -105,7 +106,7 @@ if ($email && $contrasenia) {
 		<nav class="navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="index.html">NombreTiendaWeb</a>
+					<a class="navbar-brand" href="index.html">Pandora</a>
 				</div>
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="index.html">Home</a></li>
