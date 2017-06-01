@@ -1,3 +1,8 @@
+<?php
+  session_start();
+
+?>
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -23,10 +28,10 @@
     <nav class="navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="index.html">NombreTiendaWeb</a>
+          <a class="navbar-brand" href="index.php">NombreTiendaWeb</a>
         </div>
         <ul class="nav navbar-nav">
-          <li class="active"><a href="index.html">Home</a></li>
+          <li class="active"><a href="index.php">Home</a></li>
           <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Categorias<span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#">Vestidos</a></li>
@@ -61,12 +66,39 @@
                 </div>
               </form></li>
           <li><a href="registrate.php"><span class="glyphicon glyphicon-user"></span> Crear Cuenta</a></li>
-          <li><a href="iniciarsesion.php"><span class="glyphicon glyphicon-log-in"></span> Iniciar Sesion</a></li>
+          <?php 
+              if (isset($_SESSION['user_login'])) {
+                echo"<li>";
+                echo"<a>";
+                echo $_SESSION['user_login'];
+                echo"</a>";
+                echo "</li>";
+              }else{
+                echo"<li>";
+                echo "<a href='iniciarsesion.php'><span class='glyphicon glyphicon-log-in'></span> Iniciar Sesión </a>";
+                echo "</li>";
+              }
+          ?> 
+
+          <?php 
+              if (isset($_SESSION['user_login'])) {
+                echo"<li>";
+                echo "<a href='logout.php' class='listfoo'>Deslogueate</a>";
+                echo "</li>";
+              }else{
+                echo"<li>";
+                echo "<a href='iniciarsesion.php'><span class='glyphicon glyphicon-log-in'></span> Iniciar Sesión </a>";
+                echo "</li>";
+              }
+          ?> 
+
+          <!-- <li><a href="iniciarsesion.php"><span class="glyphicon glyphicon-log-in"></span> Iniciar Sesión </a></li>
           <li>
             <div class="checkbox navbar-form fontwhite">
               <label><input type="checkbox"> Recordame</label>
             </div>
           </li>
+          -->
         </ul>
       </div>
     </nav>
@@ -233,7 +265,7 @@
 	            <li class="title-li">Nosotros</li>
 	            <li><a href="#" class="listfoo">Sobre ###</a></li>
 	            <li><a href="#" class="listfoo">Politica de Privacidad</a></li>
-	            <li><a href="faq.html" class="listfoo">Dudas frecuentes</a></li>
+	            <li><a href="faq.php" class="listfoo">Dudas frecuentes</a></li>
 	            <li><a href="#" class="listfoo">Atencion al cliente</a></li>
 	            <li><a href="#" class="listfoo">Terminos y condiciones</a></li>
 	          </ul>

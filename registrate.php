@@ -3,6 +3,11 @@ function pre($data){
     echo "<pre>".print_r($data)."</pre>";
 }
 
+session_start();
+if (isset($_SESSION['user_login'])) {
+	header("location: index.php");
+}
+
 $filename = 'usuarios.json';
 $usuario = [];
 if (file_exists($filename) && file_get_contents($filename)) {
@@ -38,8 +43,8 @@ function crearUsuario($filename,$usuario) {
 	file_put_contents($filename,json_encode($usuarios));
 	return $usuario;
 }
-// Iniciamos sessión
-session_start();
+
+
 
 $errores = [];
 
@@ -48,7 +53,7 @@ $nombre = (isset($_POST['nombre']) && strlen($_POST['nombre'])) ? $_POST['nombre
 $email = (isset($_POST['email']) && strlen($_POST['email'])) ? $_POST['email'] : 'Ingrese su email';
 $telefono = (isset($_POST['telefono']) && strlen($_POST['telefono'])) ? $_POST['telefono'] : 'Ingrese su telefono';
 $direccion = (isset($_POST['direccion']) && strlen($_POST['direccion'])) ? $_POST['direccion'] : 'Ingrese su direccion';
-$contrasenia = (isset($_POST['contrasenia']) && strlen($_POST['contrasenia'])) ? $_POST['contrasenia'] : '';
+$contrasenia = (isset($_POST['contrasenia']) && strlen($_POST['contrasenia']) ) ? $_POST['contrasenia'] : '';
 $contraseniaconfirm = (isset($_POST['contraseniaconfirm']) && strlen($_POST['contraseniaconfirm']) ) ? $_POST['contraseniaconfirm'] : '';
 
 
@@ -64,42 +69,50 @@ if ($nombre && $email && $telefono && $direccion && $contrasenia && $contrasenia
 				'email'=>$email,
 				'telefono'=>$telefono,
 				'direccion'=>$direccion,
-				'contrasenia'=>$contrasenia
+				'contrasenia'=>$contrasenia,
+				'emoticon' => false
 			];
 
+
+			//Subida de Imagenes
+		$contenido = file_get_contents('usuarios.json', true);
+		$usuarios = [];
+		if (strlen($contenido)) {
+			$usuarios = json_decode($contenido,true);
+		} else {
+			$usuarios = [];
+		}
+		//Subida de Imagenes
+
+		$usuario['id'] = count($usuarios) + 1;
+
+		//Subida de Imagenes
+		if ($_FILES['emoticon']['error'] == UPLOAD_ERR_OK) {
+			pre("El Archivo llego Correctamente");
+			$nombreArchivo = "usuario_".$usuario['id']."_.". pathinfo($_FILES["emoticon"]["name"], PATHINFO_EXTENSION);
+
+			if(move_uploaded_file($_FILES["emoticon"]["tmp_name"],"images/".$nombreArchivo)){
+				$usuario['emoticon'] = "images/".$nombreArchivo;
+			} else {
+				pre("Error al guardar archivo");
+			}
+		}
+	//Subida de Imagenes
+
 			$usuario = crearUsuario($filename,$usuario);
-			header("Location: registrocorrecto.html");
+			header("Location: registrocorrecto.php");
 			exit();
 	    } else {
         	array_push($errores, "Error: El usuario ya existe");
     	}
- } else if (isset($_POST['submit']) && strlen($_POST['submit'])){
- 	array_push($errores, "Se encuentran campos sin completar");
+
+ 	} else if (isset($_POST['submit']) && strlen($_POST['submit'])){
+ 			array_push($errores, "Se encuentran campos sin completar");
  }
 
-
-
-
-/*Codigo para Foto upload
-
-	$confirmacionUser = $_POST['name'];
-		echo "Bienvenido " . $confirmacionUser . "<br><br>";
-			//datos del arhivo
-			$foto = $HTTP_POST_FILES['name'];
-			$formatoFoto = $HTTP_POST_FILES['type'];
-			$tamanoFoto = $HTTP_POST_FILES['size'];
-			//comprobar las características de la imagen
-				if (!((strpos($formatoFoto, "gif") || strpos($formatoFoto, "jpeg")) && ($tamanoFoto < 300000))) {
-				echo "La imagen no se pudo guardar: <br><br><table><tr><td><li> Solo se pueden subir imagenes de tipo .gif o .jpg <br><li>La imagén no debe pesar más de 300Kb.</td></tr></table>";
-					}else{
-						if (move_uploaded_file($HTTP_POST_FILES['foto'], $foto))
-							echo "Tu foto ha sido cargada exitosamente.";
-						}else{
-							echo "Tu foto no pudo guardarse.";
-						} 
-					}
-*/
 ?>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -132,10 +145,10 @@ if ($nombre && $email && $telefono && $direccion && $contrasenia && $contrasenia
 		<nav class=" navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="index.html">NombreTiendaWeb</a>
+					<a class="navbar-brand" href="index.php">NombreTiendaWeb</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="index.html">Home</a></li>
+					<li class="active"><a href="index.php">Home</a></li>
 					<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Categorías<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="#">Vestidos</a></li>
@@ -172,12 +185,39 @@ if ($nombre && $email && $telefono && $direccion && $contrasenia && $contrasenia
 						</form>
 					</li>
 					<li><a href="registrate.php"><span class="glyphicon glyphicon-user"></span> Crear Cuenta</a></li>
-					<li><a href="iniciarsesion.php"><span class="glyphicon glyphicon-log-in"></span> Iniciar Sesión </a></li>
+					<?php 
+							if (isset($_SESSION['user_login'])) {
+								echo"<li>";
+								echo"<a>";
+								echo $_SESSION['user_login'];
+								echo"</a>";
+								echo "</li>";
+							}else{
+								echo"<li>";
+								echo "<a href='iniciarsesion.php'><span class='glyphicon glyphicon-log-in'></span> Iniciar Sesión </a>";
+								echo "</li>";
+							}
+					?> 
+
+					<?php 
+							if (isset($_SESSION['user_login'])) {
+								echo"<li>";
+								echo "<a href='logout.php' class='listfoo'>Deslogueate</a>";
+								echo "</li>";
+							}else{
+								echo"<li>";
+								echo "<a href='iniciarsesion.php'><span class='glyphicon glyphicon-log-in'></span> Iniciar Sesión </a>";
+								echo "</li>";
+							}
+					?> 
+
+					<!-- <li><a href="iniciarsesion.php"><span class="glyphicon glyphicon-log-in"></span> Iniciar Sesión </a></li>
 					<li>
 						<div class="checkbox navbar-form fontwhite">
 							<label><input type="checkbox"> Recordame</label>
 						</div>
 					</li>
+					-->
 				</ul>
 			</div>
 		</nav>
@@ -234,6 +274,10 @@ if ($nombre && $email && $telefono && $direccion && $contrasenia && $contrasenia
 					<input type="password" name='contraseniaconfirm' value="<?=$contraseniaconfirm?>" class=form-control id='contraseniaconfirm'>
 				</div>
 				<div class="form-group">
+					<label for ="Emoticon">Adjunte una imagen:</label>
+					<input type="file" name='emoticon' value="<?=$emoticon?>" class=form-control id='emoticon'>
+				</div>
+				<div class="form-group">
 					<input type="submit" name="submit" value="Registrate" class="btn"> 
 				</div>
 				<div class="form-group">
@@ -253,7 +297,7 @@ if ($nombre && $email && $telefono && $direccion && $contrasenia && $contrasenia
             <li class="title-li">Nosotros</li>
             <li><a href="#" class="listfoo">Sobre Pandora</a></li>
             <li><a href="#" class="listfoo">Política de Privacidad</a></li>
-            <li><a href="faq.html" class="listfoo">Dudas Frecuentes</a></li>
+            <li><a href="faq.php" class="listfoo">Dudas Frecuentes</a></li>
             <li><a href="#" class="listfoo">Atención al Cliente</a></li>
             <li><a href="#" class="listfoo">Términos y Condiciones</a></li>
           </ul>

@@ -1,3 +1,13 @@
+<?php 
+
+session_start();
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +25,7 @@
 </head>
 <body>
 
-
+<!-- HEADER -->
 	<header>
 		<div class="container Logo">
 			<div class="row">
@@ -27,10 +37,10 @@
 		<nav class=" navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="index.html">NombreTiendaWeb</a>
+					<a class="navbar-brand" href="index.php">Pandora</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="index.html">Home</a></li>
+					<li class="active"><a href="index.php">Home</a></li>
 					<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Categorías<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="#">Vestidos</a></li>
@@ -66,70 +76,71 @@
 							</div>
 						</form>
 					</li>
-					<li><a href="registrate.html"><span class="glyphicon glyphicon-user"></span> Crear Cuenta</a></li>
-					<li><a href="iniciarsesion.html"><span class="glyphicon glyphicon-log-in"></span> Iniciar Sesión </a></li>
+					<li><a href="registrate.php"><span class="glyphicon glyphicon-user"></span> Crear Cuenta</a></li>
+					
+					<?php 
+							if (isset($_SESSION['user_login'])) {
+								echo"<li>";
+								echo"<a>";
+								echo $_SESSION['user_login'];
+								echo"</a>";
+								echo "</li>";
+							}else{
+								echo"<li>";
+								echo "<a href='iniciarsesion.php'><span class='glyphicon glyphicon-log-in'></span> Iniciar Sesión </a>";
+								echo "</li>";
+							}
+					?> 
+
+					<?php 
+							if (isset($_SESSION['user_login'])) {
+								echo"<li>";
+								echo "<a href='logout.php' class='listfoo'>Deslogueate</a>";
+								echo "</li>";
+							}else{
+								echo"<li>";
+								echo "<a href='iniciarsesion.php'><span class='glyphicon glyphicon-log-in'></span> Iniciar Sesión </a>";
+								echo "</li>";
+							}
+					?> 
+					<!-- <li><a href="iniciarsesion.php"><span class="glyphicon glyphicon-log-in"></span> Iniciar Sesión </a></li> -->
+					<!--
 					<li>
 						<div class="checkbox navbar-form fontwhite">
 							<label><input type="checkbox"> Recordame</label>
 						</div>
 					</li>
+					-->
 				</ul>
 			</div>
 		</nav>
 	</header>
 
-
+<!-- CUERPO WEB -->
 	<div class="container">
 		<div class="row main">
 			<div class="panel-heading">
 				<div class="panel-title text-center">
-					<h2 class="title"> Crea tu cuenta</h2>
+					<h2 class="tittle"> 
+					<?php 
+							if (isset($_SESSION['user_login'])) {
+								echo "Hola,<br><br>";
+								echo $_SESSION['user_login'];
+								echo "<br><br>";
+							}
+					?> 
+					</h2>
+					<h2 class="title"> Iniciaste Sesion Correctamente. </h2>
+
 					<hr />
 				</div>
 			</div>			
 		</div>
 	</div>
 
-	<div class="container">
-		<div class="row">
-			<form>
-				<div class="form-group">
-					<label for ="Nombre">Nombre:</label>
-					<input type="text" name="Nombre" class=form-control id="full-name" required>
-					
-				</div>
-				  <div class="form-group">
-    				<label for="email">Email:</label>
-    				<input type="email" class="form-control" id="email" required>
-  				</div>
 
-				<div class="form-group">
-					<label for ="Telefono">Teléfono (opcional):</label>
-					<input type="tel" name="Telefono" class=form-control id="usr">
-				</div>
-				<div class="form-group">
-					<label for ="Dirección">Dirección:</label>
-					<input type="text" name="Dirección - Piso - Depto" class=form-control id="address-line1">
-				</div>
-				<div class="form-group">
-					<label for ="Contraseña">Contraseña:</label>
-					<input type="password" name="Contraseña" class=form-control id="psw">
-				</div>
-				<div class="form-group">
-					<label for ="Contraseña">Confirme su contraseña:</label>
-					<input type="password" name="Contraseña" class=form-control id="psw-repeat">
-				</div>
-				<div class="form-group">
-					<button href="#" type="button" class="btn"> Registrate </button>
-				</div>
-				<div class="form-group">
-					<input type="checkbox"> Recordame
-				</div>
-			</div>
-			</form>
-		</div>
-		
-	</div>
+<!-- CUERPO WEB -->
+
 
   <footer>
     <div class="panel-footer backgfooter">
@@ -139,7 +150,7 @@
             <li class="title-li">Nosotros</li>
             <li><a href="#" class="listfoo">Sobre Pandora</a></li>
             <li><a href="#" class="listfoo">Política de Privacidad</a></li>
-            <li><a href="faq.html" class="listfoo">Dudas Frecuentes</a></li>
+            <li><a href="faq.php" class="listfoo">Dudas Frecuentes</a></li>
             <li><a href="#" class="listfoo">Atención al Cliente</a></li>
             <li><a href="#" class="listfoo">Términos y Condiciones</a></li>
           </ul>
