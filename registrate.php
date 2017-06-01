@@ -119,7 +119,7 @@ if ($nombre && $email && $telefono && $direccion && $contrasenia && $contrasenia
 <head>
   <meta charset="utf-8">
   <title>Registrate - Pandora</title>
-  <meta name="Tienda Virtual" content="Pagina de Ropa">
+  <meta name="Pandora - Tienda Virtual" content="Pagina de Ropa">
   <meta name="author" content="Grupo5">
 
   <link rel="stylesheet" href="css/bootstrap.css">
@@ -145,7 +145,7 @@ if ($nombre && $email && $telefono && $direccion && $contrasenia && $contrasenia
 		<nav class=" navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="index.php">NombreTiendaWeb</a>
+					<a class="navbar-brand" href="index.php">Pandora</a>
 				</div>
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="index.php">Home</a></li>

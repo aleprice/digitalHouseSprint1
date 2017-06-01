@@ -83,7 +83,7 @@ if ($email && $contrasenia) {
 <head>
  	<meta charset="utf-8">
 	<title>Iniciar Sesión - Pandora</title>
-	<meta name="Tienda Virtual" content="Pagina de Ropa">
+	<meta name="Pandora - Tienda Virtual" content="Pagina de Ropa">
 	<meta name="author" content="Grupo5">
 
 	<link rel="stylesheet" href="css/bootstrap.css">
