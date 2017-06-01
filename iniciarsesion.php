@@ -1,5 +1,6 @@
 <?php 
 
+//Funciones
 function pre($data){
     echo "<pre>".print_r($data)."</pre>";
 }
@@ -18,7 +19,7 @@ function existeUsuario($filename,$email) {
 		$usuarios = getUsuarios($filename);
 		foreach ($usuarios as $key => $usuario) {
 			if ($usuario['email'] == $email) {
-			return true;
+				return true;
 			}
 		}
 	}
@@ -29,15 +30,15 @@ function contraseniaCorrecta($filename,$contrasenia) {
 	if (file_exists($filename)) {
 		$usuarios = getUsuarios($filename);
 		foreach ($usuarios as $key => $usuario) {
-			$contrasenia = password_hash($contrasenia,PASSWORD_DEFAULT);
-			if ($testContrasenia = (password_hash(($usuario['contrasenia']),PASSWORD_DEFAULT)) == $contrasenia) {
-			return true;
+			$checkcontrasenia = $usuario['contrasenia'];
+			if ( password_verify($contrasenia, $checkcontrasenia)){
+				return true;
 			}
 		}
 	}
 	return false;
 }
- //Codigo persistencia de datos 
+ //Inicia Codigo PHP
 
 session_start();
 
@@ -49,7 +50,7 @@ $errores = [];
 
 if ($email && $contrasenia) {
 
-    $contrasenia = password_hash($contrasenia,PASSWORD_DEFAULT);
+    //$contrasenia = password_hash($contrasenia,PASSWORD_DEFAULT);
 
     if (!existeUsuario($filename,$email)) {
 		array_push($errores, "El usuario NO existente");
@@ -59,9 +60,9 @@ if ($email && $contrasenia) {
     } else {
     	if(contraseniaCorrecta($filename,$contrasenia)){
     		array_push($errores, "Iniciaste Sesion Correctamente");
-    		//header("Location: sesioniniciada.html");
+    		header("Location: sesioniniciada.html");
     	}else{
-    		array_push($errores, "Usuario existente, Contraseña incorrecta");	
+    		array_push($errores, "Usuario existente, Contraseña incorrecta");    			
     	}
     	
 	}
@@ -179,7 +180,7 @@ if ($email && $contrasenia) {
 
 				<div class="form-group">
 					<label for ="Contraseña">Contraseña:</label>
-					<input type="text" name="contrasenia" class=form-control id="contrasenia">
+					<input type="password" name="contrasenia" class=form-control id="contrasenia">
 				</div>
 <!--				<div class="form-group">
 					<label for ="Contraseña">Confirme su contraseña:</label>
