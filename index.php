@@ -3,6 +3,7 @@
 
 ?>
 
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -12,11 +13,15 @@
   	<meta name="author" content="Grupo5">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/propio.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
- </head>
+
+</head>
+
 <body>
   <header>
     <div class="container Logo">
@@ -64,7 +69,8 @@
                     </button>
                   </div>
                 </div>
-              </form></li>
+              </form>
+          </li>
           <li><a href="registrate.php"><span class="glyphicon glyphicon-user"></span> Crear Cuenta</a></li>
           <?php 
               if (isset($_SESSION['user_login'])) {
@@ -78,27 +84,15 @@
                 echo "<a href='iniciarsesion.php'><span class='glyphicon glyphicon-log-in'></span> Iniciar Sesión </a>";
                 echo "</li>";
               }
-          ?> 
+          ?>
 
           <?php 
               if (isset($_SESSION['user_login'])) {
                 echo"<li>";
                 echo "<a href='logout.php' class='listfoo'>Deslogueate</a>";
                 echo "</li>";
-              }else{
-                echo"<li>";
-                echo "<a href='iniciarsesion.php'><span class='glyphicon glyphicon-log-in'></span> Iniciar Sesión </a>";
-                echo "</li>";
               }
           ?> 
-
-          <!-- <li><a href="iniciarsesion.php"><span class="glyphicon glyphicon-log-in"></span> Iniciar Sesión </a></li>
-          <li>
-            <div class="checkbox navbar-form fontwhite">
-              <label><input type="checkbox"> Recordame</label>
-            </div>
-          </li>
-          -->
         </ul>
       </div>
     </nav>
@@ -110,7 +104,7 @@
         <li data-target="#myCarousel" data-slide-to="2"></li>
       </ol>
 
-      <div class="carousel-inner" role="listbox">
+      <div class="carousel-inner">
         <div class="item active">
           <img src="img/Slider/19_slider.jpg" alt="Hombre">
           <div class="carousel-caption">
@@ -120,6 +114,9 @@
 
         <div class="item">
           <img src="img/Slider/slider-eyshe-1.jpg" alt="Mujer">
+          <div class="carousel-caption">
+            <h3>Ropa para Mujer</h3>
+          </div>
         </div>
 
         <div class="item">
@@ -127,11 +124,11 @@
         </div>
       </div>
 
-      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
       </a>
-      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>

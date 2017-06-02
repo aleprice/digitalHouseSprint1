@@ -85,6 +85,7 @@ if ($email && $contrasenia) {
 	<title>Iniciar Sesión - Pandora</title>
 	<meta name="Pandora - Tienda Virtual" content="Pagina de Ropa">
 	<meta name="author" content="Grupo5">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<link rel="stylesheet" href="css/propio.css">
@@ -168,20 +169,9 @@ if ($email && $contrasenia) {
 								echo"<li>";
 								echo "<a href='logout.php' class='listfoo'>Deslogueate</a>";
 								echo "</li>";
-							}else{
-								echo"<li>";
-								echo "<a href='iniciarsesion.php'><span class='glyphicon glyphicon-log-in'></span> Iniciar Sesión </a>";
-								echo "</li>";
 							}
+							
 					?> 
-
-					<!-- <li><a href="iniciarsesion.php"><span class="glyphicon glyphicon-log-in"></span> Iniciar Sesión </a></li>
-					<li>
-						<div class="checkbox navbar-form fontwhite">
-							<label><input type="checkbox"> Recordame</label>
-						</div>
-					</li>
-					-->
 				</ul>
 			</div>
 		</nav>
@@ -213,11 +203,6 @@ if ($email && $contrasenia) {
 					<label for ="Contraseña">Contraseña:</label>
 					<input type="password" name="contrasenia" class=form-control id="contrasenia">
 				</div>
-<!--				<div class="form-group">
-					<label for ="Contraseña">Confirme su contraseña:</label>
-					<input type="text" name="Contraseña" class=form-control id="psw-repeat">
-				</div>
--->
 				<div class="form-group">
 					<input type="submit" name="login" value="Iniciar Sesión" class="btn"> 
 				</div>

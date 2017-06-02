@@ -12,6 +12,7 @@ session_start();
   <title>Registrate - Pandora</title>
   <meta name="Pandora - Tienda Virtual" content="Pagina de Ropa">
   <meta name="author" content="Grupo5">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/propio.css">
@@ -93,10 +94,6 @@ session_start();
 							if (isset($_SESSION['user_login'])) {
 								echo"<li>";
 								echo "<a href='logout.php' class='listfoo'>Deslogueate</a>";
-								echo "</li>";
-							}else{
-								echo"<li>";
-								echo "<a href='iniciarsesion.php'><span class='glyphicon glyphicon-log-in'></span> Iniciar Sesión </a>";
 								echo "</li>";
 							}
 					?> 
