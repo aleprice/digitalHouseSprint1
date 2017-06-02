@@ -65,6 +65,11 @@ if ($email && $contrasenia) {
     	if(contraseniaCorrecta($filename,$contrasenia)){
     		array_push($errores, "Iniciaste Sesion Correctamente");
     		$_SESSION['user_login'] = $email; //CHEQUEAR COMO FUNCIONA SESSION
+    		
+    		if($_POST['rememberme']){
+    			setcookie(mail, $email);
+    		}
+
     		header("Location: sesioniniciada.php");
     	}else{
     		array_push($errores, "Usuario existente, Contraseña incorrecta");    			
@@ -196,7 +201,16 @@ if ($email && $contrasenia) {
 
 				<div class="form-group">
 					<label for="email">email:</label>
-					<input type="email" name="email" value="<?=$email?>" class="form-control" id="email" required>
+					
+					<?php 
+							if (isset($_COOKIE['mail'])) {
+								echo "<input type='email' name='email' value='$_COOKIE[mail]' class='form-control' id='email' required>";
+							}else{
+								echo "<input type='email' name='email' value='$email' class='form-control' id='email' required>";
+							}
+					?> 
+
+					<!--<input type="email" name="email" value="<?=$email?>" class="form-control" id="email" required>-->
 				</div>
 
 				<div class="form-group">
@@ -207,7 +221,7 @@ if ($email && $contrasenia) {
 					<input type="submit" name="login" value="Iniciar Sesión" class="btn"> 
 				</div>
 				<div class="form-group">
-					<input type="checkbox"> Recordame
+					<input type="checkbox" name="rememberme"> Recordame
 				</div>
 			</div>
 		</form>
