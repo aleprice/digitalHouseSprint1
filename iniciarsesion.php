@@ -204,9 +204,9 @@ if ($email && $contrasenia) {
 					
 					<?php 
 							if (isset($_COOKIE['mail'])) {
-								echo "<input type='email' name='email' value='$_COOKIE[mail]' class='form-control' id='email' required>";
+								echo "<input type='email' name='email' placeholder='$_COOKIE[mail]' class='form-control' id='email' required>";
 							}else{
-								echo "<input type='email' name='email' value='$email' class='form-control' id='email' required>";
+								echo "<input type='email' name='email' placeholder='$email' class='form-control' id='email' required>";
 							}
 					?> 
 

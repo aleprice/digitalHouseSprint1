@@ -240,20 +240,20 @@ if ($nombre && $email && $telefono && $direccion && $contrasenia && $contrasenia
 				<div class="form-group">
 				<!-- pasé mayusculas a minisculas todos los tags de name para que fuese más facil trabajar -->
 					<label for ="Nombre">Nombre:</label>
-					<input type='text' name='nombre' value="<?=$nombre?>" class=form-control id='name' required>	
+					<input type='text' name='nombre' placeholder="<?=$nombre?>" class=form-control id='name' required>	
 				</div>
 				  <div class="form-group">
     				<label for='email'>Email:</label>
-    				<input type='email' name='email' value="<?=$email?>" class="form-control" id='email' required>
+    				<input type='email' name='email' placeholder="<?=$email?>" class="form-control" id='email' required>
   				</div>
 
 				<div class="form-group">
 					<label for ="telefono">Teléfono (opcional):</label>
-					<input type='tel' name='telefono' value="<?=$telefono?>" class=form-control id='telefono'>
+					<input type='tel' name='telefono' placeholder="<?=$telefono?>" class=form-control id='telefono'>
 				</div>
 				<div class="form-group">
 					<label for ="dirección">Dirección:</label>
-					<input type='text' name='direccion' value="<?=$direccion?>" class=form-control id='direccion'>
+					<input type='text' name='direccion' placeholder="<?=$direccion?>" class=form-control id='direccion'>
 				</div>
 				<!--div class="form-group">
 					<input type="hidden" name="MAX_FILE_SIZE" value="30000" />
