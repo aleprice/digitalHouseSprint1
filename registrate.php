@@ -206,34 +206,9 @@ if ($nombre && $email && $telefono && $direccion && $contrasenia && $contrasenia
 		
 	</div>
 
-  <footer>
-    <div class="panel-footer backgfooter">
-      <div class="row">
-        <div class="col-sm-4">
-          <ul>
-            <li class="title-li">Nosotros</li>
-            <li><a href="#" class="listfoo">Sobre Pandora</a></li>
-            <li><a href="#" class="listfoo">Política de Privacidad</a></li>
-            <li><a href="faq.php" class="listfoo">Dudas Frecuentes</a></li>
-            <li><a href="#" class="listfoo">Atención al Cliente</a></li>
-            <li><a href="#" class="listfoo">Términos y Condiciones</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-4">
-          <ul>
-            <li class="title-li">Info</li>
-            <li><a href="#" class="listfoo">Como comprar</a></li>
-            <li><a href="#" class="listfoo">Plazos de Entrega</a></li>
-            <li><a href="#" class="listfoo">Promociones Bancarias</a></li>
-            <li><a href="#" class="listfoo">Cambios y devoluciones</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-4">
-          <p>Suscribite a nuestro <button type="button" class="btn btn-success"><a href="#" class="whtfont"> Newsletter</a></button></p>
-          <p>y descubrí nuestras ofertas y premios</p>
-        </div>
-      </div>
-    </div>
+	<footer>
+    <?php include("partials/footer.php"); ?>
+
   </footer>
 
 
