@@ -24,14 +24,6 @@ if (file_exists($filename) && file_get_contents($filename)) {
 		return [];
 	}
 
-	/*function abrirConexionDB()
-	{
-		$dsn = 'mysql:host=localhost;dbname=pandoradb;charset=utf8mb4;port:3306';
-		$db_user = 'root';
-		$db_pass = 'laura';
-		$db = new PDO($dsn, $db_user, $db_pass);	
-	}*/
-
     function getUsuariosPoo()
 	{
 		
@@ -57,9 +49,9 @@ if (file_exists($filename) && file_get_contents($filename)) {
 		else
 		{
 			return false;
-		}
-		//$db = null;		
+		}		
 	}
+
     function existeUsuario($filename,$email) {
 	if (file_exists($filename)) {
 		$usuarios = getUsuarios($filename);
@@ -70,8 +62,7 @@ if (file_exists($filename) && file_get_contents($filename)) {
 		}
 	}
 	return false;
-    }
-   
+    }   
 
 	function crearUsuario($filename,$usuario) {
 		$usuarios = getUsuarios($filename);
@@ -80,19 +71,11 @@ if (file_exists($filename) && file_get_contents($filename)) {
 		file_put_contents($filename,json_encode($usuarios));
 		return $usuario;
 	}
-	
-	/*function CrearUsuarioPoo($nombre, $apellido,$email,$direccion,$contrasenia)
-	{
-		$query = "insert into usuarios values($nombre, $apellido,$email,$direccion,$contrasenia);";
-		$res = $db -> prepare($query);
-		$res -> execute();
-		//$db = null;			
-	}*/
 
 
 $errores = [];
 
- //persistencia de datos 
+ //Asignación valores a variables
 $nombre = (isset($_POST['nombre']) && strlen($_POST['nombre'])) ? $_POST['nombre'] : 'Ingrese su nombre';
 $email = (isset($_POST['email']) && strlen($_POST['email'])) ? $_POST['email'] : 'Ingrese su email';
 $telefono = (isset($_POST['telefono']) && strlen($_POST['telefono'])) ? $_POST['telefono'] : 'Ingrese su telefono';
@@ -101,7 +84,7 @@ $contrasenia = (isset($_POST['contrasenia']) && strlen($_POST['contrasenia']) ) 
 $contraseniaconfirm = (isset($_POST['contraseniaconfirm']) && strlen($_POST['contraseniaconfirm']) ) ? $_POST['contraseniaconfirm'] : '';
 
 
-//Codigo para crear el json
+//Persistencia en JSON
 /*
 if ($nombre && $email && $telefono && $direccion && $contrasenia && $contraseniaconfirm && ($contrasenia == $contraseniaconfirm)) {
   		
@@ -119,7 +102,7 @@ if ($nombre && $email && $telefono && $direccion && $contrasenia && $contrasenia
 			];
 
 
-			//Subida de Imagenes
+	    //Subida de Imagenes
 		$contenido = file_get_contents('usuarios.json', true);
 		$usuarios = [];
 		if (strlen($contenido)) {
@@ -127,7 +110,7 @@ if ($nombre && $email && $telefono && $direccion && $contrasenia && $contrasenia
 		} else {
 			$usuarios = [];
 		}
-		//Subida de Imagenes
+		//FIN Subida de Imagenes
 
 		$usuario['id'] = count($usuarios) + 1;
 
@@ -142,7 +125,7 @@ if ($nombre && $email && $telefono && $direccion && $contrasenia && $contrasenia
 				pre("Error al guardar archivo");
 			}
 		}
-	//Subida de Imagenes
+	    //Subida de Imagenes
 
 			$usuario = crearUsuario($filename,$usuario);
 			header("Location: registrocorrecto.php");
@@ -156,8 +139,6 @@ if ($nombre && $email && $telefono && $direccion && $contrasenia && $contrasenia
  }
 */
 ?>
-
-
 
 <!DOCTYPE html>
 <html>
@@ -177,7 +158,7 @@ if ($nombre && $email && $telefono && $direccion && $contrasenia && $contrasenia
 </head>
 <body>
 
-	 <h1><?php if (count($errores)) { echo join("<br>",$errores); } ?></h1>
+<h1><?php if (count($errores)) { echo join("<br>",$errores); } ?></h1>
 
 <!-- HEADER -->
 	<header>
@@ -296,11 +277,7 @@ if ($nombre && $email && $telefono && $direccion && $contrasenia && $contrasenia
     				<label for='email'>Email:</label>
     				<input type='email' name='email' placeholder="<?=$email?>" class="form-control" id='email' required>
   				</div>
-
-				<!--<div class="form-group">
-					<label for ="telefono">Teléfono (opcional):</label>
-					<input type='tel' name='telefono' placeholder="<?=$telefono?>" class=form-control id='telefono'>
-				</div>-->
+				
 				<div class="form-group">
 					<label for ="dirección">Dirección:</label>
 					<input type='text' name='direccion' placeholder="<?=$direccion?>" class=form-control id='direccion'>
@@ -365,9 +342,5 @@ if ($nombre && $email && $telefono && $direccion && $contrasenia && $contrasenia
       </div>
     </div>
   </footer>
-
-
-
-
 </body>
 </html>

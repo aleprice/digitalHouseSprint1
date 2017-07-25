@@ -1,7 +1,7 @@
 <?php
 
 
-class ConectarSQL
+class Conectar
 {
 	public function con()
 	{
@@ -18,20 +18,21 @@ class Usuarios
 	
 	public function AgregarUsuario($nombre, $apellido,$email,$direccion,$contrasenia)
 	{	    
-		
-			$db1=Conectar::con();						
-			$query = "INSERT into usuarios values(default,'$nombre','$apellido','$email','$direccion','$contrasenia');";			
+			$contraseniahash = password_hash($contrasenia,PASSWORD_DEFAULT);
+			$db1=Conectar::con();	
+            var_dump($contraseniahash);
+			$query = "insert into usuarios values(default,'$nombre','$apellido','$email','$direccion', '$contraseniahash');";			
 			$res = $db1->prepare($query);		
 		    $val=$res -> execute();
 		
 		if (!empty($val)){
 			echo"<script type='text/javascript'>
-		alert('El registro se realizó correctamente');
-		window.location='home.php';
-		</script>";
+					alert('El registro se realizó correctamente');
+					window.location='index.php';
+				 </script>";
 		
 		}else{
-			echo "Error";
+			echo mysql_error();
 		}				
 	}	
 }
